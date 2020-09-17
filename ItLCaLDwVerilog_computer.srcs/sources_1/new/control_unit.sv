@@ -55,7 +55,7 @@ module control_unit (
 		S_BLE_4, S_BLE_5, S_BLE_6, S_BLE_7,
 		S_MCE} state_t;
 
-	state_t current_state, next_state;
+	state_t current_state = S_FETCH_0, next_state;
 
 	always_ff @ (posedge clock, negedge reset) begin
 
@@ -68,7 +68,7 @@ module control_unit (
 
 	always_comb begin
 	
-		case(current_state)
+		unique case(current_state)
 			S_FETCH_0		: next_state = S_FETCH_1;
 			S_FETCH_1		: next_state = S_FETCH_2;
 			S_FETCH_2		: next_state = S_DECODE_3;
@@ -253,7 +253,7 @@ module control_unit (
 		write = 1'b0;
 		mce = 1'b0;
 
-		case(current_state)
+		unique case(current_state)
 			S_FETCH_0		: begin									// Put PC onto MAR to read Opcode
 											MAR_Load = 1'b1;
 											Bus2_Sel = 2'b01;		//00 ALU_Result, 01 Bus1, 10 from_memory
@@ -265,6 +265,8 @@ module control_unit (
 											IR_Load = 1'b1;
 											Bus2_Sel = 2'b10;		//00 ALU_Result, 01 Bus1, 10 from_memory
 										end
+										
+			S_DECODE_3	: ;											// NULL
 									
 			S_LDA_IMM_4,
 			S_LDA_DIR_4,

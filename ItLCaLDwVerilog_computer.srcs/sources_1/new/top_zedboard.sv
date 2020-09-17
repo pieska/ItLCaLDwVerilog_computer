@@ -3,27 +3,14 @@ import common::*;
 module top_zedboard (
 	input logic GCLK,
 	input logic BTNC,
-	input logic SW0,
-	input logic SW1,
-	input logic SW2,
-	input logic SW3,
-	input logic SW4,
-	input logic SW5,
-	input logic SW6,
-	input logic SW7,
-	output logic LD0,
-	output logic LD1,
-	output logic LD2,
-	output logic LD3,
-	output logic LD4,
-	output logic LD5,
-	output logic LD6,
-	output logic LD7
+	input logic[7:0] SW,
+	output logic[7:0] LED
 );
 
 	logic clock;
 	logic mce;
 
+	// Dashboard to see the Registers, need CLOCKBIT(24+)
 	vio_0 vio (
 		.clk(GCLK),
 		.probe_in0(computer0.cpu0.data_path0.PC),
@@ -48,7 +35,7 @@ module top_zedboard (
   computer computer0 (
 		.clock(clock),
 		.reset(~BTNC),
-		.port_in_00(SW0),
+		.port_in_00(SW),
  		.port_in_01(8'h00),
  		.port_in_02(8'h00),
 		.port_in_03(8'h00),
@@ -65,22 +52,22 @@ module top_zedboard (
   	.port_in_14(8'h00),
   	.port_in_15(8'h00),
   	.mce(mce),
-  	.port_out_00(LD0),
-  	.port_out_01(),
-  	.port_out_02(),
-  	.port_out_03(),
-  	.port_out_04(),
-  	.port_out_05(),
-  	.port_out_06(),
-  	.port_out_07(),
-  	.port_out_08(),
-  	.port_out_09(),
- 		.port_out_10(),
- 		.port_out_11(),
-  	.port_out_12(),
-  	.port_out_13(),
-  	.port_out_14(),
-  	.port_out_15()
+  	.port_out_00(LED),
+  	.port_out_01(/*UNUSED*/),
+  	.port_out_02(/*UNUSED*/),
+  	.port_out_03(/*UNUSED*/),
+  	.port_out_04(/*UNUSED*/),
+  	.port_out_05(/*UNUSED*/),
+  	.port_out_06(/*UNUSED*/),
+  	.port_out_07(/*UNUSED*/),
+  	.port_out_08(/*UNUSED*/),
+  	.port_out_09(/*UNUSED*/),
+ 		.port_out_10(/*UNUSED*/),
+ 		.port_out_11(/*UNUSED*/),
+  	.port_out_12(/*UNUSED*/),
+  	.port_out_13(/*UNUSED*/),
+  	.port_out_14(/*UNUSED*/),
+  	.port_out_15(/*UNUSED*/)
 	);
 
 endmodule
