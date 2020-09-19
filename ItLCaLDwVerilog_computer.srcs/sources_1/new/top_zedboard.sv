@@ -7,6 +7,9 @@ module top_zedboard (
 	output logic[7:0] LED
 );
 
+	// mit 1 funktioniert computer, mit 16 sind LEDs OK, mit 24 ist vio brauchbar
+	localparam CLOCKBIT = 24;
+
 	logic clock;
 	logic mce;
 
@@ -26,8 +29,7 @@ module top_zedboard (
 		.probe_in10(mce)
 	);
 
-	// mit 1 funktioniert computer, mit 24 ist vio brauchbar
-	clock_divider #(.CLOCKBIT(24)) clock_divider0 (
+	clock_divider #(.CLOCKBIT(CLOCKBIT)) clock_divider0 (
 		.sysclock(GCLK),
 		.divclock(clock)
 	);
