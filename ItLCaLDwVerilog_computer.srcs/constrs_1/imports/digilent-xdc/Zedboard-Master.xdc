@@ -175,23 +175,15 @@ create_generated_clock -name clock -source [get_ports GCLK] -divide_by 16777216 
 # ----------------------------------------------------------------------------
 # User LEDs - Bank 33
 # ----------------------------------------------------------------------------
-#set_property PACKAGE_PIN T22 [get_ports LD0]
-#set_property PACKAGE_PIN T21 [get_ports LD1]
-#set_property PACKAGE_PIN U22 [get_ports LD2]
-#set_property PACKAGE_PIN U21 [get_ports LD3]
-#set_property PACKAGE_PIN V22 [get_ports LD4]
-#set_property PACKAGE_PIN W22 [get_ports LD5]
-#set_property PACKAGE_PIN U19 [get_ports LD6]
-#set_property PACKAGE_PIN U14 [get_ports LD7]
-set_property PACKAGE_PIN T22 [get_ports {LED[0]}]
-set_property PACKAGE_PIN T21 [get_ports {LED[1]}]
-set_property PACKAGE_PIN U22 [get_ports {LED[2]}]
-set_property PACKAGE_PIN U21 [get_ports {LED[3]}]
-set_property PACKAGE_PIN V22 [get_ports {LED[4]}]
-set_property PACKAGE_PIN W22 [get_ports {LED[5]}]
-set_property PACKAGE_PIN U19 [get_ports {LED[6]}]
-set_property PACKAGE_PIN U14 [get_ports {LED[7]}]
-set_false_path -to [get_ports {{LED[0]} {LED[1]} {LED[2]} {LED[3]} {LED[4]} {LED[5]} {LED[6]} {LED[7]}}]
+set_property PACKAGE_PIN T22 [get_ports LD0]
+set_property PACKAGE_PIN T21 [get_ports LD1]
+set_property PACKAGE_PIN U22 [get_ports LD2]
+set_property PACKAGE_PIN U21 [get_ports LD3]
+set_property PACKAGE_PIN V22 [get_ports LD4]
+set_property PACKAGE_PIN W22 [get_ports LD5]
+set_property PACKAGE_PIN U19 [get_ports LD6]
+set_property PACKAGE_PIN U14 [get_ports LD7]
+set_false_path -to [get_ports {{LD0} {LD1} {LD2} {LD3} {LD4} {LD5} {LD6} {LD7}}]
 
 # ----------------------------------------------------------------------------
 # VGA Output - Bank 33
@@ -247,23 +239,15 @@ set_false_path -from [get_ports BTNC]
 ## ----------------------------------------------------------------------------
 ## User DIP Switches - Bank 35
 ## ----------------------------------------------------------------------------
-#set_property PACKAGE_PIN F22 [get_ports SW0]
-#set_property PACKAGE_PIN G22 [get_ports SW1]
-#set_property PACKAGE_PIN H22 [get_ports SW2]
-#set_property PACKAGE_PIN F21 [get_ports SW3]
-#set_property PACKAGE_PIN H19 [get_ports SW4]
-#set_property PACKAGE_PIN H18 [get_ports SW5]
-#set_property PACKAGE_PIN H17 [get_ports SW6]
-#set_property PACKAGE_PIN M15 [get_ports SW7]
-set_property PACKAGE_PIN F22 [get_ports {SW[0]}]
-set_property PACKAGE_PIN G22 [get_ports {SW[1]}]
-set_property PACKAGE_PIN H22 [get_ports {SW[2]}]
-set_property PACKAGE_PIN F21 [get_ports {SW[3]}]
-set_property PACKAGE_PIN H19 [get_ports {SW[4]}]
-set_property PACKAGE_PIN H18 [get_ports {SW[5]}]
-set_property PACKAGE_PIN H17 [get_ports {SW[6]}]
-set_property PACKAGE_PIN M15 [get_ports {SW[7]}]
-set_false_path -from [get_ports {{SW[0]} {SW[1]} {SW[2]} {SW[3]} {SW[4]} {SW[5]} {SW[6]} {SW[7]}}]
+set_property PACKAGE_PIN F22 [get_ports SW0]
+set_property PACKAGE_PIN G22 [get_ports SW1]
+set_property PACKAGE_PIN H22 [get_ports SW2]
+set_property PACKAGE_PIN F21 [get_ports SW3]
+set_property PACKAGE_PIN H19 [get_ports SW4]
+set_property PACKAGE_PIN H18 [get_ports SW5]
+set_property PACKAGE_PIN H17 [get_ports SW6]
+set_property PACKAGE_PIN M15 [get_ports SW7]
+set_false_path -from [get_ports {{SW0} {SW1} {SW2} {SW3} {SW4} {SW5} {SW6} {SW7}}]
 
 ## ----------------------------------------------------------------------------
 ## XADC AD Channels - Bank 35
@@ -395,6 +379,9 @@ set_property IOSTANDARD LVCMOS18 [get_ports -of_objects [get_iobanks 35]]
 
 # Note that the bank voltage for IO Bank 13 is fixed to 3.3V on ZedBoard.
 set_property IOSTANDARD LVCMOS33 [get_ports -of_objects [get_iobanks 13]]
+
+# clock is very slow compared to GCLK
+set_false_path -from [get_clocks clock] -to [get_clocks GCLK]
 
 set_property C_CLK_INPUT_FREQ_HZ 100000000 [get_debug_cores dbg_hub]
 set_property C_ENABLE_CLK_DIVIDER false [get_debug_cores dbg_hub]

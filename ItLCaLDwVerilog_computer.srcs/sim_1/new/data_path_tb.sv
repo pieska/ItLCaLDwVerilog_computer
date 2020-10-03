@@ -5,7 +5,7 @@ module data_path_tb;
 	timeunit 1ns/1ps;
 
 	logic clock_tb;
-	logic reset_tb;
+	logic resetN_tb;
 	logic IR_Load_tb;
 	register_t IR_tb;
 	logic MAR_Load_tb;
@@ -17,14 +17,14 @@ module data_path_tb;
 	alu_op_t ALU_Sel_tb;
 	ccr_t CCR_Result_tb;
 	logic CCR_Load_tb;
-	logic[1:0] Bus2_Sel_tb;
-	logic[1:0] Bus1_Sel_tb;
+	logic [1:0] Bus2_Sel_tb;
+	logic [1:0] Bus1_Sel_tb;
 	data_t from_memory_tb;
 	data_t to_memory_tb;
 
 	data_path uut (
 		.clock(clock_tb),
-		.reset(reset_tb),
+		.resetN(resetN_tb),
 		.IR_Load(IR_Load_tb),
 		.MAR_Load(MAR_Load_tb),
 		.PC_Load(PC_Load_tb),
@@ -49,7 +49,7 @@ module data_path_tb;
 	initial begin
 	
 		clock_tb = 1'b0;
-		reset_tb = 1'b0;
+		resetN_tb = 1'b0;
 		IR_Load_tb = 1'b0;
 		MAR_Load_tb = 1'b0;
 		PC_Load_tb = 1'b0;
@@ -63,7 +63,7 @@ module data_path_tb;
 
 		#3
 
-		reset_tb = 1'b1;
+		resetN_tb = 1'b1;
 		
 		// put x55 in BUS2 to be read from registers
 		from_memory_tb = 8'h55;

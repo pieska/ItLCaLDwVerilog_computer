@@ -7,7 +7,7 @@ module cpu_tb;
 	localparam testfile = "cpu_tb.txt";
 
 	logic clock_tb;
-	logic reset_tb;
+	logic resetN_tb;
 	address_t address_tb;
 	logic write_tb;
 	data_t to_memory_tb;
@@ -16,7 +16,7 @@ module cpu_tb;
 
 	cpu uut (
 		.clock(clock_tb),
-		.reset(reset_tb),
+		.resetN(resetN_tb),
 		.from_memory(from_memory_tb),
 		.address(address_tb),
 		.write(write_tb),
@@ -53,12 +53,12 @@ module cpu_tb;
 			$fatal(1, "Opening file '%s' for reading failed.", testfile);
 
 		clock_tb = 1'b0;
-		reset_tb = 1'b0;
+		resetN_tb = 1'b0;
 		from_memory_tb = 'b0;
 
 		#3
 
-		reset_tb = 1'b1;
+		resetN_tb = 1'b1;
 
 		// read line by line until EOF
     while($fgets(line, fd)) begin
@@ -69,10 +69,10 @@ module cpu_tb;
 
 			// if '.' reset
 			if(line[0] == ".") begin
-				reset_tb = 1'b0;
+				resetN_tb = 1'b0;
 				from_memory_tb = 1'b0;
 				#clockperiod
-				reset_tb = 1'b1;
+				resetN_tb = 1'b1;
 				continue;
 			end
 
@@ -122,10 +122,10 @@ module cpu_tb;
 	 	$fclose(fd);
 	
 		// MCE Test
-		reset_tb = 1'b0;
+		resetN_tb = 1'b0;
 		from_memory_tb = 1'b0;
 		#clockperiod
-		reset_tb = 1'b1;
+		resetN_tb = 1'b1;
 		// invalid
 		from_memory_tb = 8'hFF;
 		// fetch_0

@@ -7,7 +7,7 @@ module computer_tb;
 	defparam uut.memory0.rom0.romfile = "rom_128x8_sync_tb.mem";
 
 	logic clock_tb;
-	logic reset_tb;
+	logic resetN_tb;
 	data_t port_in_00_tb;
  	data_t port_in_01_tb;
  	data_t port_in_02_tb;
@@ -44,7 +44,7 @@ module computer_tb;
   
   computer uut (
 		.clock(clock_tb),
-		.reset(reset_tb),
+		.resetN(resetN_tb),
 		.port_in_00(port_in_00_tb),
  		.port_in_01(port_in_01_tb),
  		.port_in_02(port_in_02_tb),
@@ -101,7 +101,7 @@ module computer_tb;
 			mce_tb);
 
 		clock_tb = 1'b0;
-		reset_tb = 1'b0;
+		resetN_tb = 1'b0;
 
 		port_in_00_tb = 8'h00;
 		port_in_01_tb = 8'h01;
@@ -122,7 +122,7 @@ module computer_tb;
 
 		#3
 
-		reset_tb = 1'b1;
+		resetN_tb = 1'b1;
 
 		// wait until port is at FF
 		wait(port_out_00_tb == 8'hFF || mce_tb == 1'b1);

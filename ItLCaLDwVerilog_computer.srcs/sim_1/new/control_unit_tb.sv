@@ -5,7 +5,7 @@ module control_unit_tb;
 	timeunit 1ns/1ps;
 
 	logic clock_tb;
-	logic reset_tb;
+	logic resetN_tb;
   register_t IR_tb;
   ccr_t CCR_Result_tb;
 	logic IR_Load_tb;
@@ -16,14 +16,14 @@ module control_unit_tb;
   logic B_Load_tb;
   alu_op_t ALU_Sel_tb;
   logic CCR_Load_tb;
-  logic[1:0] Bus2_Sel_tb;
-  logic[1:0] Bus1_Sel_tb;
+  logic [1:0] Bus2_Sel_tb;
+  logic [1:0] Bus1_Sel_tb;
   logic write_tb;
   logic mce_tb;
 
 	control_unit uut (
 		.clock(clock_tb),
-		.reset(reset_tb),
+		.resetN(resetN_tb),
   	.IR(IR_tb),
   	.CCR_Result(CCR_Result_tb),
 		.IR_Load(IR_Load_tb),
@@ -47,13 +47,13 @@ module control_unit_tb;
 	initial begin
 	
 		clock_tb = 1'b0;
-		reset_tb = 1'b0;
+		resetN_tb = 1'b0;
 		IR_tb = 'b0;
 		CCR_Result_tb = 'b0;
 
 		#3
 
-		reset_tb = 1'b1;
+		resetN_tb = 1'b1;
 		
 		// TODO: nothing to test?
 		

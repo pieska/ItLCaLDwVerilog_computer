@@ -7,7 +7,7 @@ module memory_tb;
 	defparam uut.rom0.romfile = "rom_128x8_sync_tb.mem";
 
 	logic clock_tb;
-	logic reset_tb;
+	logic resetN_tb;
 	address_t address_tb;
 	logic write_tb;
 	data_t data_in_tb;
@@ -47,7 +47,7 @@ module memory_tb;
 
 	memory uut (
 		.clock(clock_tb),
-		.reset(reset_tb),
+		.resetN(resetN_tb),
 		.address(address_tb),
 		.write(write_tb),
 		.data_in(data_in_tb),
@@ -93,12 +93,12 @@ module memory_tb;
 	initial begin
 	
 		clock_tb = 1'b0;
-		reset_tb = 1'b0;
+		resetN_tb = 1'b0;
 		write_tb = 1'b0;
 		
 		#3;
 	
-		reset_tb = 1'b1;
+		resetN_tb = 1'b1;
 		
 		// rom
 		address_tb = 8'h00;
@@ -166,9 +166,9 @@ module memory_tb;
 		assert(port_out_15_tb == 8'hAA) else $error("port_out_15 not AA");
 		#clockperiod;
 		
-		reset_tb = 1'b0;
+		resetN_tb = 1'b0;
 		#clockperiod;
-		reset_tb = 1'b1;
+		resetN_tb = 1'b1;
 		assert(port_out_15_tb == 8'h00) else $error("port_out_15 not 00");
 		#clockperiod;
 

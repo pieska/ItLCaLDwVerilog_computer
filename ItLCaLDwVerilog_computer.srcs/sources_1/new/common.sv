@@ -4,14 +4,14 @@ package common;
 
 	parameter clockperiod = 2;
 	
-	typedef logic[7:0] data_t;
-	typedef logic[7:0] address_t;
-	typedef logic[7:0] register_t;
-	typedef logic[3:0] ccr_t;
+	typedef logic [7:0] data_t;
+	typedef logic [7:0] address_t;
+	typedef logic [7:0] register_t;
+	typedef logic [3:0] ccr_t;
 
-	typedef logic[7:0] opc_t;
+	typedef logic [7:0] opc_t;
 
-	typedef enum logic[2:0] {
+	typedef enum logic [2:0] {
 		ALU_OP_ADD, ALU_OP_SUB,
 		ALU_OP_AND, ALU_OP_OR,
 		ALU_OP_INC, ALU_OP_DEC,

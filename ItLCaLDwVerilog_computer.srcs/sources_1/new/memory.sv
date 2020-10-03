@@ -2,7 +2,7 @@ import common::*;
 	
 module memory (
 	input logic clock,
-	input logic reset,
+	input logic resetN,
 	input address_t address,
 	input logic write,
 	input data_t data_in,
@@ -103,113 +103,113 @@ module memory (
 
   end
 
-	always_ff @ (posedge clock, negedge reset) begin
-		if(!reset)
+	always_ff @(posedge clock, negedge resetN) begin
+		if(!resetN)
 			port_out_00 <= 8'h00;
 		else if((address == 8'hE0) && (write))
 			port_out_00 <= data_in;
 	end
 
-	always_ff @ (posedge clock, negedge reset) begin
-		if(!reset)
+	always_ff @(posedge clock, negedge resetN) begin
+		if(!resetN)
 			port_out_01 <= 8'h00;
 		else if((address == 8'hE1) && (write))
 			port_out_01 <= data_in;
 	end;
 
-	always_ff @ (posedge clock, negedge reset) begin
-		if(!reset)
+	always_ff @(posedge clock, negedge resetN) begin
+		if(!resetN)
 			port_out_02 <= 8'h00;
 		else if((address == 8'hE2) && (write))
 			port_out_02 <= data_in;
 	end;
 
-	always_ff @ (posedge clock, negedge reset) begin
-		if(!reset)
+	always_ff @(posedge clock, negedge resetN) begin
+		if(!resetN)
 			port_out_03 <= 8'h00;
 		else if((address == 8'hE3) && (write))
 			port_out_03 <= data_in;
 	end;
 
-	always_ff @ (posedge clock, negedge reset) begin
-		if(!reset)
+	always_ff @(posedge clock, negedge resetN) begin
+		if(!resetN)
 			port_out_04 <= 8'h00;
 		else if((address == 8'hE4) && (write))
 			port_out_04 <= data_in;
 	end;
 
-	always_ff @ (posedge clock, negedge reset) begin
-		if(!reset)
+	always_ff @(posedge clock, negedge resetN) begin
+		if(!resetN)
 			port_out_05 <= 8'h00;
 		else if((address == 8'hE5) && (write))
 			port_out_05 <= data_in;
 	end;
 
-	always_ff @ (posedge clock, negedge reset) begin
-		if(!reset)
+	always_ff @(posedge clock, negedge resetN) begin
+		if(!resetN)
 			port_out_06 <= 8'h00;
 		else if((address == 8'hE6) && (write))
 			port_out_06 <= data_in;
 	end;
 
-	always_ff @ (posedge clock, negedge reset) begin
-		if(!reset)
+	always_ff @(posedge clock, negedge resetN) begin
+		if(!resetN)
 			port_out_07 <= 8'h00;
 		else if((address == 8'hE7) && (write))
 			port_out_07 <= data_in;
 	end;
 
-	always_ff @ (posedge clock, negedge reset) begin
-		if(!reset)
+	always_ff @(posedge clock, negedge resetN) begin
+		if(!resetN)
 			port_out_08 <= 8'h00;
 		else if((address == 8'hE8) && (write))
 			port_out_08 <= data_in;
 	end;
 
-	always_ff @ (posedge clock, negedge reset) begin
-		if(!reset)
+	always_ff @(posedge clock, negedge resetN) begin
+		if(!resetN)
 			port_out_09 <= 8'h00;
 		else if((address == 8'hE9) && (write))
 			port_out_09 <= data_in;
 	end;
 
-	always_ff @ (posedge clock, negedge reset) begin
-		if(!reset)
+	always_ff @(posedge clock, negedge resetN) begin
+		if(!resetN)
 			port_out_10 <= 8'h00;
 		else if((address == 8'hEA) && (write))
 			port_out_10 <= data_in;
 	end;
 
-	always_ff @ (posedge clock, negedge reset) begin
-		if(!reset)
+	always_ff @(posedge clock, negedge resetN) begin
+		if(!resetN)
 			port_out_11 <= 8'h00;
 		else if((address == 8'hEB) && (write))
 			port_out_11 <= data_in;
 	end;
 
-	always_ff @ (posedge clock, negedge reset) begin
-		if(!reset)
+	always_ff @(posedge clock, negedge resetN) begin
+		if(!resetN)
 			port_out_12 <= 8'h00;
 		else if((address == 8'hEC) && (write))
 			port_out_12 <= data_in;
 	end;
 
-	always_ff @ (posedge clock, negedge reset) begin
-		if(!reset)
+	always_ff @(posedge clock, negedge resetN) begin
+		if(!resetN)
 			port_out_13 <= 8'h00;
 		else if((address == 8'hED) && (write))
 			port_out_13 <= data_in;
 	end;
 
-	always_ff @ (posedge clock, negedge reset) begin
-		if(!reset)
+	always_ff @(posedge clock, negedge resetN) begin
+		if(!resetN)
 			port_out_14 <= 8'h00;
 		else if((address == 8'hEE) && (write))
 			port_out_14 <= data_in;
 	end;
 
-	always_ff @ (posedge clock, negedge reset) begin
-		if(!reset)
+	always_ff @(posedge clock, negedge resetN) begin
+		if(!resetN)
 			port_out_15 <= 8'h00;
 		else if((address == 8'hEF) && (write))
 			port_out_15 <= data_in;

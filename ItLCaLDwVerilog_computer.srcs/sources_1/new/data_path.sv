@@ -2,7 +2,7 @@ import common::*;
 
 module data_path (
 	input logic clock,
-	input logic	reset,
+	input logic	resetN,
 	input logic IR_Load,
 	input logic MAR_Load,
 	input logic PC_Load,
@@ -11,8 +11,8 @@ module data_path (
 	input logic B_Load,
 	input alu_op_t ALU_Sel,
 	input logic CCR_Load,
-	input logic[1:0] Bus2_Sel,
-	input logic[1:0] Bus1_Sel,
+	input logic [1:0] Bus2_Sel,
+	input logic [1:0] Bus1_Sel,
 	input data_t from_memory,
 	output register_t IR,
 	output address_t address,
@@ -42,8 +42,8 @@ module data_path (
 		.ALU_Result(ALU_Result)
 	);
 
-	always_ff @ (posedge clock, negedge reset) begin
-		if(!reset)
+	always_ff @(posedge clock, negedge resetN) begin
+		if(!resetN)
 			IReg <= 'b0;
 		else if(IR_Load)
 			IReg <= BUS2;
@@ -51,8 +51,8 @@ module data_path (
 
 	assign IR = IReg;
 
-	always_ff @ (posedge clock, negedge reset) begin
-		if(!reset)
+	always_ff @(posedge clock, negedge resetN) begin
+		if(!resetN)
 			MAReg <= 'b0;
 		else if(MAR_Load)
 			MAReg <= BUS2;
@@ -60,8 +60,8 @@ module data_path (
 
 	assign address = MAReg;
 
-	always_ff @ (posedge clock, negedge reset) begin
-		if(!reset)
+	always_ff @(posedge clock, negedge resetN) begin
+		if(!resetN)
 			PC <= 'b0;
 		else if(PC_Load)
 			PC <= BUS2;
@@ -69,22 +69,22 @@ module data_path (
 			PC <= PC + 1;	// im buch PC <= MAR + 1
 	end
 
-	always_ff @ (posedge clock, negedge reset) begin
-		if(!reset)
+	always_ff @(posedge clock, negedge resetN) begin
+		if(!resetN)
 			A <= 'b0;
 		else if(A_Load)
 			A <= BUS2;
 	end
 
-	always_ff @ (posedge clock, negedge reset) begin
-		if(!reset)
+	always_ff @(posedge clock, negedge resetN) begin
+		if(!resetN)
 			B <= 'b0;
 		else if(B_Load)
 			B <= BUS2;
 	end
 
-	always_ff @ (posedge clock, negedge reset) begin
-		if(!reset)
+	always_ff @(posedge clock, negedge resetN) begin
+		if(!resetN)
 			CCR <= 'b0;
 		else if(CCR_Load)
 			CCR <= NZVC;

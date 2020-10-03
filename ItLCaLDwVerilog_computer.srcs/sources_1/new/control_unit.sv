@@ -2,7 +2,7 @@ import common::*;
 
 module control_unit (
 	input logic clock,
-	input logic reset,
+	input logic resetN,
   input register_t IR,
   input ccr_t CCR_Result,
 	output logic IR_Load,
@@ -13,15 +13,15 @@ module control_unit (
   output logic B_Load,
   output alu_op_t ALU_Sel,
   output logic CCR_Load,
-  output logic[1:0] Bus2_Sel,
-  output logic[1:0] Bus1_Sel,
+  output logic [1:0] Bus2_Sel,
+  output logic [1:0] Bus1_Sel,
   output logic write,
   output logic mce
 );
 
 	timeunit 1ns/1ps;
 
-	typedef enum logic[6:0] {
+	typedef enum logic [6:0] {
 		S_FETCH_0, S_FETCH_1, S_FETCH_2,
 		S_DECODE_3,
 		S_LDA_IMM_4, S_LDA_IMM_5, S_LDA_IMM_6,
@@ -57,9 +57,8 @@ module control_unit (
 
 	state_t current_state = S_FETCH_0, next_state;
 
-	always_ff @ (posedge clock, negedge reset) begin
-
-		if(!reset)
+	always_ff @(posedge clock, negedge resetN) begin
+		if(!resetN)
 			current_state <= S_FETCH_0;
 		else
 			current_state <= next_state;

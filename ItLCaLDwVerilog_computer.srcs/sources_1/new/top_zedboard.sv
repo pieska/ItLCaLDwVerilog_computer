@@ -1,17 +1,36 @@
-import common::*;
-
 module top_zedboard (
 	input logic GCLK,
 	input logic BTNC,
-	input logic[7:0] SW,
-	output logic[7:0] LED
+	input logic SW0,
+	input logic SW1,
+	input logic SW2,
+	input logic SW3,
+	input logic SW4,
+	input logic SW5,
+	input logic SW6,
+	input logic SW7,
+	output logic LD0,
+	output logic LD1,
+	output logic LD2,
+	output logic LD3,
+	output logic LD4,
+	output logic LD5,
+	output logic LD6,
+	output logic LD7
 );
 
 	// mit 1 funktioniert computer, mit 16 sind LEDs OK, mit 24 ist vio brauchbar
 	localparam CLOCKBIT = 24;
+	localparam STABLECYCLES =(100 * 10**6) / 1000 * 10; // 10ms @ 100 MHz
 
 	logic clock;
 	logic mce;
+	logic BTNC_deb;
+	logic BTNC_valid;
+	logic [7:0] SW_deb;
+	logic SW_valid;
+	logic resetN;
+	logic [7:0] SW;
 
 	// Dashboard to see the Registers, need CLOCKBIT(24+)
 	vio_0 vio (
@@ -34,9 +53,27 @@ module top_zedboard (
 		.divclock(clock)
 	);
 
+	debouncer #(.STABLECYCLES(STABLECYCLES)) debouncer0_1 (
+		.clock(GCLK),
+		.raw(BTNC),
+		.valid(BTNC_valid),
+		.deb(BTNC_deb)
+	);
+
+	assign resetN = BTNC_valid ? ~BTNC_deb : 0;
+
+	debouncer #(.WIDTH(8),.STABLECYCLES(STABLECYCLES)) debouncer0_8 (
+		.clock(GCLK),
+		.raw({SW7,SW6,SW5,SW4,SW3,SW2,SW1,SW0}),
+		.valid(SW_valid),
+		.deb(SW_deb)
+	);
+
+	assign SW = SW_valid ? SW_deb : 0;
+
   computer computer0 (
 		.clock(clock),
-		.reset(~BTNC),
+		.resetN(resetN),
 		.port_in_00(SW),
  		.port_in_01(8'h00),
  		.port_in_02(8'h00),
@@ -54,7 +91,7 @@ module top_zedboard (
   	.port_in_14(8'h00),
   	.port_in_15(8'h00),
   	.mce(mce),
-  	.port_out_00(LED),
+  	.port_out_00({LD7,LD6,LD5,LD4,LD3,LD2,LD1,LD0}),
   	.port_out_01(/*UNUSED*/),
   	.port_out_02(/*UNUSED*/),
   	.port_out_03(/*UNUSED*/),

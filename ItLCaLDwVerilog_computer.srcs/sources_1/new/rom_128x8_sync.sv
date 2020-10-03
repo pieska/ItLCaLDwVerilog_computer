@@ -16,7 +16,7 @@ module rom_128x8_sync (
 	initial
 		$readmemh(romfile, ROM);
 	
-	always_ff @ (posedge clock) begin
+	always_ff @(posedge clock) begin
 		if((address >= $left(ROM)) && (address <= $right(ROM)))
 			data_out <= ROM[address];
 	end

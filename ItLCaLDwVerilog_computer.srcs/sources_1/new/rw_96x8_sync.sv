@@ -12,7 +12,7 @@ module rw_96x8_sync (
 
 	data_t RW[128:223];
 
-	always_ff @ (posedge clock) begin
+	always_ff @(posedge clock) begin
 		// address in valid range?	
 		if((address >= $left(RW)) && (address <= $right(RW)))
 			if(write) begin

@@ -2,7 +2,7 @@ import common::*;
 
 module computer (
 	input logic clock,
-	input logic reset,
+	input logic resetN,
 	input data_t port_in_00,
  	input data_t port_in_01,
  	input data_t port_in_02,
@@ -47,7 +47,7 @@ module computer (
 
 	cpu cpu0 (
 		.clock(clock),
-		.reset(reset),
+		.resetN(resetN),
 		.from_memory(memory_out),
 		.address(memory_address),
 		.write(memory_write),
@@ -57,7 +57,7 @@ module computer (
 
 	memory memory0 (
 		.clock(clock),
-		.reset(reset),
+		.resetN(resetN),
 		.address(memory_address),
 		.write(memory_write),
 		.data_in(memory_in),
